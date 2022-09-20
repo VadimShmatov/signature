@@ -12,7 +12,7 @@
 */
 class FileBlockHashWriter : public Worker
 {
-	static const size_t io_buffer_size_bytes = 1024 * 1024;
+	static constexpr const size_t io_buffer_size_bytes = 1024 * 1024;
 	const size_t seek_reduction_factor;
 	const std::string output_file;
 	std::shared_ptr<BlockingQueue<BlockHash>> input_queue;
@@ -25,8 +25,8 @@ class FileBlockHashWriter : public Worker
 
 public:
 	FileBlockHashWriter(const std::shared_ptr<BlockingQueue<BlockHash>>& input_queue, const std::string& file_name, const size_t seek_reduction_factor);
-	virtual void on_start() override;
-	virtual bool do_work() override;
-	virtual void on_stop() override;
-	virtual ~FileBlockHashWriter() override;
+	void on_start() override;
+	bool do_work() override;
+	void on_stop() override;
+	~FileBlockHashWriter() override;
 };

@@ -9,7 +9,7 @@ FileBlockHashBuffer::FileBlockHashBuffer(size_t hash_size, size_t buffer_size)
 void FileBlockHashBuffer::add_hash(const BlockHash& block_hash)
 {
 	size_t position = block_hash.position % buffer_size;
-	std::copy_n(block_hash.hash_hex.data(), hash_size, data.get() + line_size * position);
+	std::copy(block_hash.hash_hex.data(), block_hash.hash_hex.data() + hash_size, data.get() + line_size * position);
 	data.get()[line_size * position + hash_size] = EOL;
 	hashes_remaining--;
 }

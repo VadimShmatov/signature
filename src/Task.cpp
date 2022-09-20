@@ -14,11 +14,8 @@ void Task::operator()()
 		while (worker->do_work());
 		worker->on_stop();
 	}
-	catch (std::exception& ex) {
+	catch (const std::exception& ex) {
 		BOOST_LOG_TRIVIAL(error) << "Unhandled exception during task [" << name << "] execution! " << ex.what();
-	}
-	catch (std::string& ex) {
-		BOOST_LOG_TRIVIAL(error) << "Unhandled exception during task [" << name << "] execution! " << ex;
 	}
 	catch (...) {
 		BOOST_LOG_TRIVIAL(error) << "Unhandled exception during task [" << name << "] execution!";

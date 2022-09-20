@@ -76,10 +76,12 @@ BOOST_AUTO_TEST_CASE(FileBlockHasherMD5Test, *boost::unit_test::timeout(5))
     std::shared_ptr<BlockingQueue<BlockHash>> output_queue = std::make_shared<BlockingQueue<BlockHash>>(2);
     input_queue->start_writing();
     FileBlock block1(0, 3);
-    std::copy_n("qwe", 3, block1.data.get());
+    std::string block1_data = "qwe";
+    std::copy(block1_data.begin(), block1_data.end(), block1.data.get());
     input_queue->push(std::move(block1));
     FileBlock block2(1, 3);
-    std::copy_n("rty", 3, block2.data.get());
+    std::string block2_data = "rty";
+    std::copy(block2_data.begin(), block2_data.end(), block2.data.get());
     input_queue->push(std::move(block2));
     input_queue->stop_writing();
     std::unique_ptr<Worker> hasher = std::make_unique<FileBlockHasherMD5>(input_queue, output_queue);

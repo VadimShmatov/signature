@@ -11,7 +11,7 @@
 */
 class FileBlockReader : public Worker
 {
-	static const size_t io_buffer_size_bytes = 1024 * 1024;
+	static constexpr const size_t io_buffer_size_bytes = 1024 * 1024;
 	size_t current_pos = 0;
 	const size_t block_size;
 	const std::string input_file;
@@ -21,8 +21,8 @@ class FileBlockReader : public Worker
 
 public:
 	FileBlockReader(const std::shared_ptr<BlockingQueue<FileBlock>>& output_queue, const std::string& file_name, const size_t block_size);
-	virtual void on_start() override;
-	virtual bool do_work() override;
-	virtual void on_stop() override;
-	virtual ~FileBlockReader() override;
+	void on_start() override;
+	bool do_work() override;
+	void on_stop() override;
+	~FileBlockReader() override;
 };

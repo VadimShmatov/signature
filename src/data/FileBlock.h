@@ -8,8 +8,7 @@ struct FileBlock
 	size_t size;
 	std::unique_ptr<char[]> data;
 
-	FileBlock()
-	{}
+	FileBlock() = default;
 	FileBlock(size_t position, size_t size)
 		: position(position), size(size)
 	{

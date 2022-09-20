@@ -46,7 +46,6 @@ public:
         if (queue_limit > 0) {
             while (queue.size() >= queue_limit) {
                 is_overflown = true;
-                //BOOST_LOG_TRIVIAL(warning) << "Queue " << typeid(Data).name() << ": is_overflown = true [" << queue.size() << "/" << queue_limit << "]";
                 item_removed_event.wait(lock);
             }
         }
@@ -54,7 +53,6 @@ public:
         if (is_empty) {
             if (queue.size() >= (1.0 - watermark) * queue_limit) {
                 is_empty = false;
-                //BOOST_LOG_TRIVIAL(warning) << "Queue " << typeid(Data).name() << ": is_empty = false [" << queue.size() << "/" << queue_limit << "]";
                 new_item_or_closed_event.notify_all();
             }
         }
@@ -71,7 +69,6 @@ public:
                 return false;
             }
             is_empty = true;
-            //BOOST_LOG_TRIVIAL(warning) << "Queue " << typeid(Data).name() << ": is_empty = true [" << queue.size() << "/" << queue_limit << "]";
             new_item_or_closed_event.wait(lock);
         }
         popped_value = std::move(queue.front());
@@ -79,7 +76,6 @@ public:
         if (is_overflown) {
             if (queue.size() <= watermark * queue_limit) {
                 is_overflown = false;
-                //BOOST_LOG_TRIVIAL(warning) << "Queue " << typeid(Data).name() << ": is_overflown = false [" << queue.size() << "/" << queue_limit << "]";
                 item_removed_event.notify_all();
             }
         }

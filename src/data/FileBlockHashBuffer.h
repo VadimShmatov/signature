@@ -6,7 +6,7 @@
 */
 class FileBlockHashBuffer
 {
-	static const char EOL = '\n';
+	static constexpr const char EOL = '\n';
 	const size_t hash_size;
 	const size_t line_size;
 	const size_t buffer_size;
